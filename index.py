@@ -6,7 +6,6 @@ from numpy.core.shape_base import block
 
 
 """function that returns the transformation cube matrix for a given rotation in x, y, and z"""
-
 def rotationMatrix(x, y, z):
     """
     Returns the transformation matrix for a cube with a given rotation in x, y, and z
@@ -33,8 +32,6 @@ def rotationMatrix(x, y, z):
 
 
 """function that returns the transformation cube matrix for a given rotation in x, y, and z about an arbitrary axis"""
-
-
 def rotationMatrixAboutAxis(x, y, z, xp, yp, zp, t):
     """
     Returns the transformation matrix for a cube with a given rotation in x, y, and z about an arbitrary axis
@@ -79,8 +76,6 @@ def rotationMatrixAboutAxis(x, y, z, xp, yp, zp, t):
 
 
 """Function that returns the transformation matrix for a given translation in x, y, and z"""
-
-
 def translationMatrix(x, y, z):
     """
     Returns the transformation matrix for a cube with a given translation in x, y, and z
@@ -94,8 +89,6 @@ def translationMatrix(x, y, z):
 
 
 """Function that returns the transformation matrix for a given scaling in x, y, and z"""
-
-
 def scalingMatrix(x, y, z):
     """
     Returns the transformation matrix for a cube with a given scaling in x, y, and z
@@ -109,11 +102,7 @@ def scalingMatrix(x, y, z):
     return S
 
 
-
-
 """Function that returns the transformation matrix for a given shearing in x, y, and z"""
-
-
 def shearingMatrix(x, y, z):
     """
     Returns the transformation matrix for a cube with a given shearing in x, y, and z
@@ -140,8 +129,6 @@ def shearingMatrix(x, y, z):
 
 
 """Function that returns the transformation matrix for a given reflection in x, y, and z"""
-
-
 def reflectionMatrix(x, y, z):
     """
     Returns the transformation matrix for a cube with a given reflection in x, y, and z
@@ -205,7 +192,7 @@ lanjut = True
 while lanjut == True:
     print("this is final_coord ")
     print(final_coord)
-    print("Pilih metode transformasi yang ingin dilakukan : \n1. Translasi \n2. Scaling \n3. Rotasi \n4. Shear")
+    print("Pilih metode transformasi yang ingin dilakukan : \n1. Translasi \n2. Scaling \n3. Rotasi \n4. Rotasi dengan arbitari axis \n5.Shear")
     methode = int(input("pilih sesuai nomor \n"))
     if methode == 1:
         x = int(input("geser x sejauh : "))
@@ -230,7 +217,19 @@ while lanjut == True:
             final_coord = np.dot(rotationMatrix(0,y, 0), final_coord)
         elif axis == 3:
             final_coord = np.dot(rotationMatrix(0,0,z), final_coord)
-    elif methode == 4:
+     elif methode == 4:
+        print("masukan dua koordinat untuk garis axis rotasi: ")
+        print("Masukkan koordinat titik ke-1")
+        xo=(int(input("X = ")))
+        yo=(int(input("Y = ")))
+        zo=(int(input("Z = ")))
+        print("Masukkan koordinat titik ke-1")
+        xp=(int(input("X = ")))
+        yp=(int(input("Y = ")))
+        zp=(int(input("Z = ")))
+        degree = int(input("putar sebanyak (derajat): "))
+        final_coord = np.dot(rotationMatrixAboutAxis(xo, yo, zo, xp, yp, zp,degree), final_coord)
+    elif methode == 5:
         print("pilih sumbu shear yang ingin dilakukan : \n1. xy \n2. yz \n3. xz")
         shear = int(input("pilih sesuai nomor \n"))
         if shear == 1 or shear == 3:
