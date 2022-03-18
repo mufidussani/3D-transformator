@@ -207,17 +207,14 @@ while lanjut == True:
     elif methode == 3:
         print("pilih sumbu rotasi yang ingin dilakukan : \n1. x \n2. y \n3. z")
         axis = int(input("pilih sesuai nomor \n"))
-        degree = int(input("putar sebanyak (derajat): "))
-        x = int(input("titik pusat x : "))
-        y = int(input("titik pusat y : "))
-        z = int(input("titik pusat z : "))
+        t = int(input("putar sebanyak (derajat): "))
         if axis == 1:
-            final_coord = np.dot(rotationMatrix(x, 0,0), final_coord)
+            final_coord = np.dot(rotationMatrix(t, 0,0), final_coord)
         elif axis == 2:
-            final_coord = np.dot(rotationMatrix(0,y, 0), final_coord)
+            final_coord = np.dot(rotationMatrix(0,t, 0), final_coord)
         elif axis == 3:
-            final_coord = np.dot(rotationMatrix(0,0,z), final_coord)
-     elif methode == 4:
+            final_coord = np.dot(rotationMatrix(0,0,t), final_coord)
+    elif methode == 4:
         print("masukan dua koordinat untuk garis axis rotasi: ")
         print("Masukkan koordinat titik ke-1")
         xo=(int(input("X = ")))
