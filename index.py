@@ -1,4 +1,4 @@
-from graphics import *
+# from graphics import *
 import numpy as np
 import math as m
 import matplotlib.pyplot as plt
@@ -192,22 +192,25 @@ lanjut = True
 while lanjut == True:
     print("this is final_coord ")
     print(final_coord)
-    print("Pilih metode transformasi yang ingin dilakukan : \n1. Translasi \n2. Scaling \n3. Rotasi \n4. Rotasi dengan arbitari axis \n5.Shear")
-    methode = int(input("pilih sesuai nomor \n"))
+    print("Pilih metode transformasi yang ingin dilakukan : \n1. Translasi \n2. Scaling \n3. Rotasi \n4. Rotasi dengan arbitrari axis \n5.Shear")
+    methode = int(input("Pilih sesuai nomor \n"))
     if methode == 1:
-        x = int(input("geser x sejauh : "))
-        y = int(input("geser y sejauh : "))
-        z = int(input("geser z sejauh : "))
+        print("Anda memilih metode translasi.\n")
+        x = int(input("Geser x sejauh : "))
+        y = int(input("Geser y sejauh : "))
+        z = int(input("Geser z sejauh : "))
         final_coord = np.dot(translationMatrix(x, y, z),final_coord)
     elif methode == 2:
+        print("Anda memilih metode scaling.\n")
         x = int(input("scale x sebanyak : "))
         y = int(input("scale y sebanyak : "))
         z = int(input("scale z sebanyak : "))
         final_coord = np.dot(scalingMatrix(x, y, z),final_coord)
     elif methode == 3:
-        print("pilih sumbu rotasi yang ingin dilakukan : \n1. x \n2. y \n3. z")
-        axis = int(input("pilih sesuai nomor \n"))
-        t = int(input("putar sebanyak (derajat): "))
+        print("Anda memilih metode rotasi.\n")
+        print("Tentukan sumbu rotasi yang ingin dilakukan : \n1. x \n2. y \n3. z")
+        axis = int(input("Pilih sesuai nomor \n"))
+        t = int(input("Tentukan sudut putar (dalam satuan derajat): "))
         if axis == 1:
             final_coord = np.dot(rotationMatrix(t, 0,0), final_coord)
         elif axis == 2:
@@ -215,26 +218,28 @@ while lanjut == True:
         elif axis == 3:
             final_coord = np.dot(rotationMatrix(0,0,t), final_coord)
     elif methode == 4:
-        print("masukan dua koordinat untuk garis axis rotasi: ")
+        print("Anda memilih metode rotasi terhadap arbitrari axis.\n")
+        print("Masukan dua koordinat untuk garis axis rotasi: ")
         print("Masukkan koordinat titik ke-1")
         xo=(int(input("X = ")))
         yo=(int(input("Y = ")))
         zo=(int(input("Z = ")))
-        print("Masukkan koordinat titik ke-1")
+        print("Masukkan koordinat titik ke-2")
         xp=(int(input("X = ")))
         yp=(int(input("Y = ")))
         zp=(int(input("Z = ")))
-        degree = int(input("putar sebanyak (derajat): "))
+        degree = int(input("Tentukan sudut putar (dalam satuan derajat): "))
         final_coord = np.dot(rotationMatrixAboutAxis(xo, yo, zo, xp, yp, zp,degree), final_coord)
     elif methode == 5:
-        print("pilih sumbu shear yang ingin dilakukan : \n1. xy \n2. yz \n3. xz")
-        shear = int(input("pilih sesuai nomor \n"))
+        print("Anda memilih metode shearing.\n")
+        print("Tentukan sumbu shear yang ingin dilakukan : \n1. xy \n2. yz \n3. xz")
+        shear = int(input("Pilih sesuai nomor \n"))
         if shear == 1 or shear == 3:
-            x = int(input("shear x sebesar : "))
+            x = int(input("Shear x sebesar : "))
         if shear == 1 or shear == 2:
-            y = int(input("shear y sebesar : "))
+            y = int(input("Shear y sebesar : "))
         if shear == 2 or shear == 3:
-            z = int(input("shear z sebesar : "))
+            z = int(input("Shear z sebesar : "))
 
         if shear == 1:
             final_coord= np.dot(shearingMatrix(x, y,0),final_coord)
@@ -243,7 +248,7 @@ while lanjut == True:
         elif shear == 3:
             final_coord= np.dot(shearingMatrix(x,0, z),final_coord)
 
-    print("matrix hasil transformasi : \n", final_coord)
+    print("Matrix hasil transformasi : \n", final_coord)
 
     # Creating figure
     fig = plt.figure(figsize=(10, 7))
