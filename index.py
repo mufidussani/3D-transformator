@@ -81,7 +81,7 @@ def rotationMatrixAboutAxis(x, y, z, xp, yp, zp, t):
 """Function that returns the transformation matrix for a given translation in x, y, and z"""
 
 
-def translationMatrix(coord, x, y, z):
+def translationMatrix(x, y, z):
     """
     Returns the transformation matrix for a cube with a given translation in x, y, and z
     """
@@ -90,36 +90,25 @@ def translationMatrix(coord, x, y, z):
                    [0, 1, 0, y],
                    [0, 0, 1, z],
                    [0, 0, 0, 1]])
-    final_coord = np.dot(Tx, coord)
-    return final_coord
+    return Tx
 
 
 """Function that returns the transformation matrix for a given scaling in x, y, and z"""
 
 
-def scalingMatrix(coord, x, y, z):
+def scalingMatrix(x, y, z):
     """
     Returns the transformation matrix for a cube with a given scaling in x, y, and z
     """
     # get the scaling matrices
-    Sx = np.array([[x, 0, 0, 0],
-                   [0, 1, 0, 0],
-                   [0, 0, 1, 0],
-                   [0, 0, 0, 1]])
-    Sy = np.array([[1, 0, 0, 0],
+    S = np.array([[x, 0, 0, 0],
                    [0, y, 0, 0],
-                   [0, 0, 1, 0],
-                   [0, 0, 0, 1]])
-    Sz = np.array([[1, 0, 0, 0],
-                   [0, 1, 0, 0],
                    [0, 0, z, 0],
                    [0, 0, 0, 1]])
-    
-    scaling =  Sx*Sy*Sz
-    final_coord = np.dot(scaling, coord)
-    return final_coord
     # return the scaling transformation matrix
-    
+    return S
+
+
 
 
 """Function that returns the transformation matrix for a given shearing in x, y, and z"""
@@ -130,21 +119,24 @@ def shearingMatrix(x, y, z):
     Returns the transformation matrix for a cube with a given shearing in x, y, and z
     """
     # get the shearing matrices
-    Sx = np.array([[1, 0, 0, 0],
+    if(x==0):
+        S = np.array([[1, 0, 0, 0],
                    [y, 1, 0, 0],
                    [z, 0, 1, 0],
                    [0, 0, 0, 1]])
-    Sy = np.array([[1, x, 0, 0],
+    if(y==0):
+        S = np.array([[1, x, 0, 0],
                    [0, 1, 0, 0],
                    [0, z, 1, 0],
                    [0, 0, 0, 1]])
-    Sz = np.array([[1, 0, x, 0],
+    if(z==0):
+        S = np.array([[1, 0, x, 0],
                    [0, 1, y, 0],
                    [0, 0, 1, 0],
                    [0, 0, 0, 1]])
 
     # return the shearing transformation matrix
-    return Sx*Sy*Sz
+    return S
 
 
 """Function that returns the transformation matrix for a given reflection in x, y, and z"""
@@ -201,7 +193,7 @@ for i in range(n):
     z_list.append(int(input("Z = ")))
     w_list.append(1)
 
-    
+
 coord = []
 coord.append(x_list)
 coord.append(y_list)
@@ -211,18 +203,20 @@ coord.append(w_list)
 final_coord = coord
 lanjut = True
 while lanjut == True:
+    print("this is final_coord ")
+    print(final_coord)
     print("Pilih metode transformasi yang ingin dilakukan : \n1. Translasi \n2. Scaling \n3. Rotasi \n4. Shear")
     methode = int(input("pilih sesuai nomor \n"))
     if methode == 1:
         x = int(input("geser x sejauh : "))
         y = int(input("geser y sejauh : "))
         z = int(input("geser z sejauh : "))
-        final_coord = translationMatrix(final_coord, x, y, z)
+        final_coord = np.dot(translationMatrix(x, y, z),final_coord)
     elif methode == 2:
         x = int(input("scale x sebanyak : "))
         y = int(input("scale y sebanyak : "))
-        z = int(input("geser z sebanyak : "))
-        final_coord = scalingMatrix(final_coord, x, y, z)
+        z = int(input("scale z sebanyak : "))
+        final_coord = np.dot(scalingMatrix(x, y, z),final_coord)
     elif methode == 3:
         print("pilih sumbu rotasi yang ingin dilakukan : \n1. x \n2. y \n3. z")
         axis = int(input("pilih sesuai nomor \n"))
@@ -231,11 +225,11 @@ while lanjut == True:
         y = int(input("titik pusat y : "))
         z = int(input("titik pusat z : "))
         if axis == 1:
-            rotationMatrix(x, y)
+            final_coord = np.dot(rotationMatrix(x, 0,0), final_coord)
         elif axis == 2:
-            rotationMatrix(y, z)
+            final_coord = np.dot(rotationMatrix(0,y, 0), final_coord)
         elif axis == 3:
-            rotationMatrix(y, z)
+            final_coord = np.dot(rotationMatrix(0,0,z), final_coord)
     elif methode == 4:
         print("pilih sumbu shear yang ingin dilakukan : \n1. xy \n2. yz \n3. xz")
         shear = int(input("pilih sesuai nomor \n"))
@@ -246,12 +240,12 @@ while lanjut == True:
         if shear == 2 or shear == 3:
             z = int(input("shear z sebesar : "))
 
-        if axis == 1:
-            shearingMatrix(x, y)
-        elif axis == 2:
-            shearingMatrix(y, z)
-        elif axis == 3:
-            shearingMatrix(x, z)
+        if shear == 1:
+            final_coord= np.dot(shearingMatrix(x, y,0),final_coord)
+        elif shear == 2:
+            final_coord =  np.dot(shearingMatrix(0,y, z), final_coord)
+        elif shear == 3:
+            final_coord= np.dot(shearingMatrix(x,0, z),final_coord)
 
     print("matrix hasil transformasi : \n", final_coord)
 
