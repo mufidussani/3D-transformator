@@ -8,14 +8,17 @@ def rotationMatrix(x, y, z):
     Returns the transformation matrix for a cube with a given rotation in x, y, and z
     """
     # get the rotation matrices
+
     Rx = np.array([[1, 0, 0, 0],
                       [0, m.cos(x), -m.sin(x), 0],
                       [0, m.sin(x), m.cos(x), 0],
                       [0, 0, 0, 1]])
+
     Ry = np.array([[m.cos(y), 0, m.sin(y), 0],
                       [0, 1, 0, 0],
                       [-m.sin(y), 0, m.cos(y), 0],
                       [0, 0, 0, 1]])
+
     Rz = np.array([[m.cos(z), -m.sin(z), 0, 0],
                       [m.sin(z), m.cos(z), 0, 0],
                       [0, 0, 1, 0],
@@ -23,6 +26,49 @@ def rotationMatrix(x, y, z):
 
     # return the rotation transformation matrix
     return Rx*Ry*Rz
+
+"""function that returns the transformation cube matrix for a given rotation in x, y, and z about an arbitrary axis"""
+def rotationMatrixAboutAxis(x,y,z, xp, yp, zp,t):
+    """
+    Returns the transformation matrix for a cube with a given rotation in x, y, and z about an arbitrary axis
+    """
+    A,B,C = xp - x, yp - y, zp - z
+    L = m.sqrt(A**2 + B**2 + C**2)
+    V = m.sqrt(B**2 + C**2)
+    # get the rotation matrices
+    Rx = np.array([[m.cos(t), 0, m.sin(t), 0],
+                      [0, 1, 0, 0],
+                      [-m.sin(t), 0, m.cos(t), 0],
+                      [0, 0, 0, 1]])
+    Rxi = np.array([[m.cos(-t), 0, m.sin(-t), 0],
+                      [0, 1, 0, 0],
+                      [-m.sin(-t), 0, m.cos(-t), 0],
+                      [0, 0, 0, 1]])
+    Ry = np.array([[V/L, 0, -A/L, 0],
+                      [0, 1, 0, 0],
+                      [A/L, 0, V/L, 0],
+                      [0, 0, 0, 1]])
+    Ryi = np.array([[V/L, 0, A/L, 0],
+                      [0, 1, 0, 0],
+                      [-A/L, 0, V/L, 0],
+                      [0, 0, 0, 1]])
+    Rz = np.array([[m.cos(t), -m.sin(t), 0, 0],
+                      [m.sin(t), m.cos(t), 0, 0],
+                      [0, 0, 1, 0],
+                      [0, 0, 0, 1]])
+
+    # get the translation matrices
+    T = np.array([[1, 0, 0, -x],
+                      [0, 1, 0, -y],
+                      [0, 0, 1, -z],
+                      [0, 0, 0, 1]])
+    Ti = np.array([[1, 0, 0, x],
+                      [0, 1, 0, y],
+                      [0, 0, 1, z],
+                      [0, 0, 0, 1]])
+
+    # return the rotation transformation matrix
+    return Ti*Rxi*Ryi*Rz*Ry*Rx*T
 
 """Function that returns the transformation matrix for a given translation in x, y, and z"""
 def translationMatrix(x, y, z):
