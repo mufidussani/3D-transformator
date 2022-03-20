@@ -72,7 +72,17 @@ def rotationMatrixAboutAxis(x, y, z, xp, yp, zp, t):
                    [0, 0, 0, 1]])
 
     # return the rotation transformation matrix
-    return Ti*Rxi*Ryi*Rz*Ry*Rx*T
+    p = ([0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0])
+    p = np.dot(Ti, Rxi)
+    p = np.dot(p, Ryi)
+    p = np.dot(p, Rz)
+    p = np.dot(p, Ry)
+    p = np.dot(p, Rx)
+    p = np.dot(p, T)
+    return p
 
 
 """Function that returns the transformation matrix for a given translation in x, y, and z"""
