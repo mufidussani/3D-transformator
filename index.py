@@ -126,22 +126,22 @@ def scalingMatrix(x, y, z):
 """Function that returns the transformation matrix for a given shearing in x, y, and z"""
 
 
-def shearingMatrix(x, y, z):
+def shearingMatrix(x, y, z, sh):
     """
     Returns the transformation matrix for a cube with a given shearing in x, y, and z
     """
     # get the shearing matrices
-    if(x == 0):
+    if(sh == 2):
         Sh = np.array([[1, 0, 0, 0],
-                       [y, 1, 0, 0],
-                       [z, 0, 1, 0],
-                       [0, 0, 0, 1]])
-    if(y == 0):
-        Sh = np.array([[1, x, 0, 0],
-                       [0, 1, 0, 0],
+                       [0, y, 0, 0],
                        [0, z, 1, 0],
                        [0, 0, 0, 1]])
-    if(z == 0):
+    if(sh == 3):
+        Sh = np.array([[x, 0, 0, 0],
+                       [0, 1, 0, 0],
+                       [z, 0, 1, 0],
+                       [0, 0, 0, 1]])
+    if(sh == 1):
         Sh = np.array([[1, 0, x, 0],
                        [0, 1, y, 0],
                        [0, 0, 1, 0],
@@ -270,11 +270,11 @@ while lanjut == True:
             z = int(input("Shear z sebesar : "))
 
         if shear == 1:
-            final_coord = np.dot(shearingMatrix(x, y, 0), final_coord)
+            final_coord = np.dot(shearingMatrix(x, y, 0, shear), final_coord)
         elif shear == 2:
-            final_coord = np.dot(shearingMatrix(0, y, z), final_coord)
+            final_coord = np.dot(shearingMatrix(0, y, z, shear), final_coord)
         elif shear == 3:
-            final_coord = np.dot(shearingMatrix(x, 0, z), final_coord)
+            final_coord = np.dot(shearingMatrix(x, 0, z, shear), final_coord)
 
     print("\nMatrix hasil transformasi : \n", final_coord)
 
