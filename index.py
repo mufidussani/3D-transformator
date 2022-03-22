@@ -292,9 +292,9 @@ class Program:
 
             elif methode == 2:
                 print("Anda memilih metode scaling.")
-                x = float(input("scale x sebanyak : "))
-                y = float(input("scale y sebanyak : "))
-                z = float(input("scale z sebanyak : "))
+                x = float(input("Scale x sebanyak : "))
+                y = float(input("Scale y sebanyak : "))
+                z = float(input("Scale z sebanyak : "))
                 Program.transformation(self, w, 1, 'scaling', x, y, z)
 
             elif methode == 3:
@@ -327,8 +327,7 @@ class Program:
 
             elif methode == 5:
                 print("Anda memilih metode shearing.\n")
-                print(
-                    "Tentukan sumbu shear yang ingin dilakukan : \n1. xy \n2. yz \n3. xz")
+                print("Tentukan sumbu shear yang ingin dilakukan : \n1. xy \n2. yz \n3. xz")
                 shear = int(input("Pilih sesuai nomor \n"))
                 if shear == 1 or shear == 3:
                     x = int(input("Shear x sebesar : "))
