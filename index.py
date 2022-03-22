@@ -1,3 +1,11 @@
+# Tugas Teknik Visualisasi Grafis Transformasi 3D Kelompok 13
+# Anggota:
+# 1. Iskan Mustamir             (20/456367/TK/50497)
+# 2. M. Fatin Abimanyu          (20/456844/TK/50668)
+# 3. M. Iqbal Reza Riandani     (20/460549/TK/51138)
+# 4. Vira Ayu Oktaviani         (20/460570/TK/51159)
+# 5. Mufidus Sani               (20/463608/TK/51600)
+
 import math as m
 import numpy as np
 from graphics import *
